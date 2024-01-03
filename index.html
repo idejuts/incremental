@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Incremental Game</title>
+</head>
+<body>
+    <div id="header">
+        <h1>Money: €<span id="moneyCount">0</span> | Vitality: <span id="vitality">100%</span></h1>
+    </div>
+    <div id="buttons">
+        <button id="bitcoinButton" onclick="buyBitcoin()">Buy Bitcoin</button>
+        <button id="buyBeerButton" onclick="buyBeer()">Buy Beer</button>
+        <button id="recycleButton" onclick="recycleBottles()">Recycle Bottles</button>
+        <button id="unlockButton" style="display: none;" onclick="buyUnlock()">Buy Unlock</button>
+        <button id="workButton" onclick="goToWork()">Go To Work</button>
+        <button id="employBumButton" onclick="employBum()">Employ A Bum</button>
+    </div>
+    <div id="message">Messages</div>
+    <div id="counters">
+        <p>Beers: <span id="beerCount">0</span> l</p>
+        <p>Bitcoin: <span id="bitcoinClicks">0</span> BTC</p>
+        <p>Recycled: <span id="recycleCounter">0</span> Times</p>
+        <p>Bums Recycling: <span id="bumsRecycling">0</span></p>
+
+
+    </div>
+ 
+    <button id="startOverButton" style="display: none;" onclick="startOver()">Start Over</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

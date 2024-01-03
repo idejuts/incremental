@@ -1,0 +1,12 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: gray;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+#resources, #upgrades {
+    margin: 20px;
+}
