@@ -3,32 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incremental Game with Upgrade</title>
     <link rel="stylesheet" href="styles.css">
-    <title>Incremental Game</title>
 </head>
 <body>
-    <div id="header">
-        <h1>Money: €<span id="moneyCount">0</span> | Vitality: <span id="vitality">100%</span></h1>
+    <div class="game-wrapper">
+    <div id="game-container">
+        <h1 >Incremental Game</h1>
+        <p class="scoreList">Score: <span id="score">0</span></p>
+
+        <div class="content-container">
+            <h2>Manual Resource Generation</h2>
+        <button id="clickButton">Click me!</button>
+        <p>Upgrades:</p>
+        <button id="buyUpgrade">Buy Upgrade (Cost: <span id="upgradeCost">10</span>)</button>
     </div>
-    <div id="buttons">
-        <button id="bitcoinButton" onclick="buyBitcoin()">Buy Bitcoin</button>
-        <button id="buyBeerButton" onclick="buyBeer()">Buy Beer</button>
-        <button id="recycleButton" onclick="recycleBottles()">Recycle Bottles</button>
-        <button id="unlockButton" style="display: none;" onclick="buyUnlock()">Buy Unlock</button>
-        <button id="workButton" onclick="goToWork()">Go To Work</button>
-        <button id="employBumButton" onclick="employBum()">Employ A Bum</button>
     </div>
-    <div id="message">Messages</div>
-    <div id="counters">
-        <p>Beers: <span id="beerCount">0</span> l</p>
-        <p>Bitcoin: <span id="bitcoinClicks">0</span> BTC</p>
-        <p>Recycled: <span id="recycleCounter">0</span> Times</p>
-        <p>Bums Recycling: <span id="bumsRecycling">0</span></p>
+
+    <!-- New container for automated resource generation upgrades -->
+    <div class="content-container" id="autoUpgradeContainer" style="display: none;">
+        <h2>Automated Resource Generation</h2>
+        <p>Income Rate: <span id="incomeRate">0</span> per second</p>
+        <button id="buyAutoUpgrade">Buy Upgrade (Cost: <span id="autoUpgradeCost">100</span>)</button>
+    </div>
+    <!-- New container for automated resource generation upgrades -->
+    <div class="content-container" id="autoSuperUpgradeContainer" style="display: none;">
+        <h2>Super Resource Generation</h2>
+        <p>Income Rate: <span id="incomeSuperRate">0</span> per second</p>
+        <button id="buyAutoSuperUpgrade">Buy Upgrade (Cost: <span id="autoSuperUpgradeCost">1000</span>)</button>
+    </div>
+
+</div>
 
 
+
+    <!-- Reset button at the footer -->
+    <div id="footer">
+        <button id="resetButton">Reset Game</button>
     </div>
- 
-    <button id="startOverButton" style="display: none;" onclick="startOver()">Start Over</button>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="popupMessage"></p>
+        </div>
+    </div>
+
 
     <script src="script.js"></script>
 </body>
