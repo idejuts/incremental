@@ -196,31 +196,21 @@ function showOfflineProgressionPopup() {
     const currentTimeStamp = Math.floor(Date.now() / 1000);
     const deltaTime = currentTimeStamp - gameState.lastUpdateTimestamp;
 
-    // Calculate offline progression
-    const offlineProgression = gameState.incomeRate * deltaTime;
-    gameState.score += offlineProgression;
+    if (deltaTime > 120) {  // 2 minutes (120 seconds)
+        const offlineProgression = gameState.incomeRate * deltaTime;
+        gameState.score += offlineProgression;
 
-    // Update the timestamp for the next calculation
+        const popupMessage = `While you were away, you earned ${offlineProgression.toFixed(2)} points!`;
+        showPopup(popupMessage);
+
+        updateScoreDisplay();
+    }
+
     gameState.lastUpdateTimestamp = currentTimeStamp;
-
-    // Display a popup with the offline progression information
-    const popupMessage = `While you were away, you earned ${offlineProgression.toFixed(2)} points!`;
-    
-    // Use your custom popup function instead of alert
-    showPopup(popupMessage);
-
-    // Update the display
-    updateScoreDisplay();
 }
 
-
-// ...
-
 // Call the showOfflineProgressionPopup function when the player returns
-// You can trigger this event based on user interaction or when the game starts
-// For example, when the page is fully loaded, you might call it in the window.onload event handler.
-
-//window.onload = showOfflineProgressionPopup;
+window.onload = showOfflineProgressionPopup;
 
 
 function showPopup(message) {
