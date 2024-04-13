@@ -1,77 +1,25 @@
-body {
-  font-family: "Arial", sans-serif;
-  text-align: center;
-  background-color: gray;
-}
-
-#footer {
-  margin-top: 50vh;
-}
-
-button {
-  padding: 10px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.scoreList {
-  font-size: 40px;
-}
-
-.game-wrapper {
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-  align-content: flex-start;
-}
-
-.content-container {
-    border: 3px solid black;
-    /* display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-    align-content: flex-start; */
-    width: 400px;
-    margin-bottom: 2vw;
-    padding-bottom: 1vw;
-}
-
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
-
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
+#dragContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .draggableElement {
+    width: 100px;
+    height: 50px;
+    background-color: lightgreen;
+    text-align: center;
+    line-height: 50px;
+  }
+  
+  .dropContainer {
+    width: 200px;
+    height: 100px;
+    background-color: lightcoral;
+    text-align: center;
+    line-height: 100px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  
