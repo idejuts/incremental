@@ -1,31 +1,150 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<style>
-  #div1, #div2 {
-    float: left;
-    width: 100px;
-    height: 35px;
-    margin: 10px;
-    padding: 10px;
-    border: 1px solid black;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SortableJS Example with Shared Lists, Autosave, and Continuous Score Counter</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+    <style>
+        .list-container {
+            width: 30%;
+            margin: 20px;
+        }
 
+        .list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .list li {
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 5px;
+            cursor: grab;
+        }
+
+        .list-total {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        #score-counter {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
+    <div class="list-container">
+        <h3>List 1</h3>
+        <ul id="list1" class="list">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+        </ul>
+        <div id="list1-total" class="list-total">Total: 0</div>
+    </div>
 
-<h2>Drag and Drop</h2>
-<p>Drag the image back and forth between the two div elements.</p>
+    <div class="list-container">
+        <h3>List 2</h3>
+        <ul id="list2" class="list">
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+        </ul>
+        <div id="list2-total" class="list-total">Total: 0</div>
+    </div>
 
-<div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)">
-  <img src="img_w3slogo.gif" draggable="true" ondragstart="drag(event)" id="drag1" width="88" height="31">
-</div>
+    <div class="list-container">
+        <h3>List 3</h3>
+        <ul id="list3" class="list">
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+        </ul>
+        <div id="list3-total" class="list-total">Total: 0</div>
+    </div>
 
-<div id="div2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <!-- Score counter -->
+    <div id="score-counter">Score: 0</div>
 
-<script src="https://cdn.jsdelivr.net/npm/drag-drop-touch@1.0.0/dist/drag-drop-touch.min.js"></script>
-<script src="script.js"></script>
-<script src="DragDropTouch.js"></script>
+    <!-- Button to clear local storage -->
+    <button id="clear-storage-btn">Clear Local Storage</button>
+
+    <script>
+        // Initialize SortableJS with shared group
+        let lists = document.querySelectorAll('.list');
+
+        lists.forEach(list => {
+            new Sortable(list, {
+                group: 'shared',
+                animation: 150,
+                ghostClass: 'sortable-ghost',
+                onEnd: function(evt) {
+                    saveState();
+                }
+            });
+        });
+
+        // Function to save the state of all lists to local storage
+        function saveState() {
+            let listStates = {};
+            lists.forEach((list, index) => {
+                let listId = list.id;
+                let items = Array.from(list.children).map(li => li.textContent);
+                listStates[listId] = items;
+            });
+            localStorage.setItem('sortable-state', JSON.stringify(listStates));
+            updateTotalsAndScore();
+        }
+
+        // Function to restore the state of all lists from local storage
+        function restoreState() {
+            let savedState = JSON.parse(localStorage.getItem('sortable-state'));
+            if (savedState) {
+                lists.forEach(list => {
+                    let listId = list.id;
+                    let items = savedState[listId];
+                    if (items) {
+                        list.innerHTML = ''; // Clear the list
+                        items.forEach(item => {
+                            let listItem = document.createElement('li');
+                            listItem.textContent = item;
+                            list.appendChild(listItem);
+                        });
+                    }
+                });
+                updateTotalsAndScore();
+            }
+        }
+
+        // Function to update the totals for each list and calculate the score
+        function updateTotalsAndScore() {
+            let totalScore = 0;
+            lists.forEach(list => {
+                let total = 0;
+                Array.from(list.children).forEach(li => {
+                    total += parseInt(li.textContent);
+                });
+                totalScore += total;
+                document.getElementById(list.id + '-total').textContent = 'Total: ' + total;
+            });
+            document.getElementById('score-counter').textContent = 'Score: ' + totalScore;
+        }
+
+        // Restore saved state if it exists
+        restoreState();
+
+        // Event listener for the clear storage button
+        document.getElementById('clear-storage-btn').addEventListener('click', function() {
+            localStorage.removeItem('sortable-state');
+            location.reload(); // Refresh the page to clear the state
+        });
+
+        // Update totals and score every second
+        setInterval(updateTotalsAndScore, 1000);
+    </script>
 </body>
 </html>
